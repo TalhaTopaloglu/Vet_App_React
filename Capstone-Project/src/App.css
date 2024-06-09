@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.add-new-form{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    max-width: 1400px;
+    margin: auto;
+}
+
+
+.add-new-form > .new-form-textfield{
+    margin-top: 0.5rem;
+}
+
+.add-new-form > .new-form-select{
+    margin-top: 0.5rem;
+    background-color: transparent;
+    border-radius: 3px;
+    padding: 1rem 0.4rem;
+    font-size: 18px;
+    color: rgb(100, 100, 100) ;
+}
+
+.add-new-form > .new-form-select option{
+    margin-top: 0.5rem;
+    background-color: transparent;
+    height: 1.5rem;
+    border-radius: 3px;
+}
+
+.add-new-form > .add-button{
+    /* max-width: 300px;
+     */
+    margin-top: 0.5rem;
+}
+
+.add-new-form > h1{
+    /* text-align: center; */
+    padding: 2rem 0;
+    text-decoration: underline;
+}
+
+.form-container{
+    margin: 3rem 0;
+}
+
+.table{
+   max-width: 1400px;
+   margin: auto;
+   box-shadow: 5px 5px 40px #888888
+}
+
+.table th{
+    background-color: blueviolet;
+ }
+ .table tr{
+    background-color: rgb(241, 241, 241);
+ }
+ .table td{
+    font-size: 14px;
+ }
+.detail{
+    margin-top: 125px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+ .detail-page{
+    box-shadow: 5px 5px 40px #888888;
+    border-radius: 5rem;
+    width: 800px;
+    min-height: 500px;
+ }
+
+ .detail-page-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #111;
+ }
+ .detail-page-header h1{
+   font-size: 80px;
+ }
+
+ .data-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: self-start;
+ }
+
+ .data-info h3{
+   margin: 1rem 0;
+ }
+ .data-lists ul > li {
+   margin: 1rem 0;
+ }
+
+ .detail-page-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: baseline;
+    padding: 1rem;
+    border-bottom: 1px solid #111;
+ }
+
+ .detail-page-footer{
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+ }
+
+
