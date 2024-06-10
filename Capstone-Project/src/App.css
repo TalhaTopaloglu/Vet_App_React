@@ -5,6 +5,11 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+body{
+    background-color:
+    #fdfdf8 ;
+}
+
 .add-new-form{
     margin-top: 50px;
     display: flex;

@@ -2,13 +2,30 @@ import axios from 'axios';
 
 const baseURL = import.meta.env.VITE_API_URL
 
-const apiURL = `${baseURL}/v1/customers`;
+const apiURL = `${baseURL}/v1/customers`; //?page=0&pageSize=10'
 
 export const getCustomers = async () => {
     try{
-        const response = await axios.get(apiURL);
-        console.log(response)
+        const response = await axios.get();
         return response.data.data.items;
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+export const getPageableCustomers = async (pageNumber) => {
+    try{
+        const response = await axios.get(`${apiURL}?page=${pageNumber}&pageSize=10`);
+        return response.data.data.items;
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+export const getCustomersTotalElement = async () => {
+    try{
+        const response = await axios.get(apiURL);
+        return response.data.data.totalElement;
     }catch(error){
         console.log(error.message);
     }
