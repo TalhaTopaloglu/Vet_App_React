@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { createVaccine } from "../../services/VaccineApi";
 import { VaccineContext } from "../../contexts/VaccinesContext";
 import TextField from "@mui/material/TextField";
@@ -7,13 +7,17 @@ import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import { getAnimals } from "../../services/AnimalApi";
 import { getReports } from "../../services/ReportApi";
+import { Alert, InputLabel } from "@mui/material";
 
 function CreateVaccineForm() {
+  const [animals, setAnimals] = useState([]);
+  const [animal ,setAnimal] = useState();
+  const [reports, setReports] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
+  const [errorList, setErrorList] = useState();
+  const { addVaccine } = useContext(VaccineContext);
 
-    const [animals, setAnimals] = useState([]);
-    const [reports, setReports] = useState([]);
-    const { addVaccine } = useContext(VaccineContext);
-
+  const { id } = useParams();
 
   useEffect(() => {
     async function fetchData() {
@@ -22,6 +26,9 @@ function CreateVaccineForm() {
         setAnimals(animals);
         const reports = await getReports();
         setReports(reports);
+        console.log(reports)
+        console.log(id)
+        setAnimal(reports?.find((item) => (item.id == id)).appointment.animal);
       } catch (error) {
         console.log("Error fetching products: " + error);
       }
@@ -37,23 +44,21 @@ function CreateVaccineForm() {
   const animalRef = useRef();
   const reportRef = useRef();
 
-
-
   async function add(target) {
     target.preventDefault();
-
+    setErrorList([]);
     try {
       const newVaccine = {
-        name: nameRef.current.value,
-        code: codeRef.current.value,
+        name: nameRef.current.value === "" ? null : nameRef.current.value ,
+        code: codeRef.current.value === "" ? null : codeRef.current.value ,
         protectionStartDate: protectionStartDateRef.current.value,
         protectionFinishDate: protectionFinishDateRef.current.value,
-        animalId: animalRef.current.value,
-        reportId: reportRef.current.value,
+        animalId: animalRef.current.value === "" ? null :animalRef.current.value ,
+        reportId: id,
       };
-      console.log(newVaccine)
+      console.log(newVaccine);
       const response = await createVaccine(newVaccine);
-      console.log(response)
+      console.log(response);
       if (response === undefined) {
         return false;
       } else {
@@ -61,19 +66,41 @@ function CreateVaccineForm() {
         navigate(`/vaccine/${response.id}`);
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.data)
+      if(error.data){
+        setErrorList(error.data)
+      }else {
+        setErrorList(["Protection start date cannot be before finish date"])
+      }
+      setShowAlert(true)
+      setTimeout(() => {
+        setShowAlert(false)
+      },2000)
     }
   }
 
-  return (
+  return (<>
+    <h1
+      style={{
+        color: "#00695f",
+        textDecoration: "underline",
+        maxWidth: "1400px",
+        margin: "100px auto 20px"
+      }}
+    >
+      Add Vaccine
+    </h1>
     <div className="form-container">
+    {showAlert ? (
+        errorList?.map((item,index) =>{
+         return <Alert sx={{width: "40%", margin:"auto", mt:3}} key={index}  variant="filled" severity="error">{item}</Alert>
+        })): 
       <form className="add-new-form">
-        <h1>Aşı Ekle</h1>
         <TextField
           required
           className="new-form-textfield"
           id="outlined-required"
-          label="Name"
+          label="Vaccine Name"
           inputRef={nameRef}
           type="text"
         />
@@ -82,11 +109,11 @@ function CreateVaccineForm() {
           required
           className="new-form-textfield"
           id="outlined-required"
-          label="Species"
+          label="Vaccine Code"
           inputRef={codeRef}
           type="text"
         />
-
+       
         <TextField
           required
           className="new-form-textfield"
@@ -104,43 +131,37 @@ function CreateVaccineForm() {
         />
 
         <select
-          className="new-form-select "
+          className="new-form-select"
           ref={animalRef}
           name="animalId"
           id="title"
+          disabled
         >
-          <option>Hayvan İsmi</option>
-          {animals?.map((item, index) => (
-            <option key={index} value={`${item.id}`}>
-              {item.name}
-            </option>
-          ))}
+          <option value={animal?.id}>{animal?.name}</option>
         </select>
 
-        <select
-          className="new-form-select "
-          ref={reportRef}
-          name="reportId"
-          id="title"
-        >
-          <option>Rapor Tanımı</option>
-          {reports?.map((item, index) => (
-            <option key={index} value={`${item.id}`}>
-              {item.description}
-            </option>
-          ))}
-        </select>
+        <TextField
+          required
+          className="new-form-textfield"
+          id="outlined-required"
+          inputRef={reportRef}
+          defaultValue={`Report Id : ${id}`}
+          type="reportId"
+          disabled
+        />
 
         <Button
           className="add-button"
+          style={{ backgroundColor: "#00695f" }}
           onClick={add}
           variant="contained"
           endIcon={<SendIcon />}
         >
-          Aşı Ekle
+          Add New Vaccine
         </Button>
-      </form>
+      </form>}
     </div>
+  </>
   );
 }
 

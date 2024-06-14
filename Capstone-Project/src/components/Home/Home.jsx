@@ -13,7 +13,7 @@ const pages = [
     link: "/animal",
   },
   {
-    name: "Doctor",
+    name: "Doctor & Work Day",
     link: "/doctor",
   },
   {

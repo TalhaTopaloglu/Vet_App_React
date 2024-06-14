@@ -3,20 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { AnimalContext } from "../../contexts/AnimalContext";
 import { createAnimal } from "../../services/AnimalApi";
 import { getCustomers, getCustomerById } from "../../services/CustomerApi";
-import { Button, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Alert, Button, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
 function CreateAnimalForm() {
   const [customerList, setCustomerList] = useState([]);
-  const [customerId, setCustomerId] = useState(0);
   const { addAnimal } = useContext(AnimalContext);
+  const [showAlert, setShowAlert] = useState(false);
+  const [errorList, setErrorList] = useState([]);
 
   useState(() => {
     async function fetchData() {
       try {
         const customers = await getCustomers();
+        console.log(customers)
         setCustomerList(customers);
-      } catch (error) {
+        } catch (error) {
         console.log("Error fetching products: " + error);
       }
     }
@@ -50,22 +52,46 @@ function CreateAnimalForm() {
       const response = await createAnimal(newAnimal);
       console.log(response);
       if (response === undefined) {
+        setErrorList(["Already Exist"]);
+        setShowAlert(true)
+        setTimeout(() => {
+        setShowAlert(false)
+      },2000)
         return false;
       } else {
         addAnimal(response);
         navigate(`/animal/${response.id}`);
       }
     } catch (error) {
-      console.log(error);
+      if(error === undefined){
+        error = ["Geçerli bir müşteri giriniz"];
+      }
+      setErrorList(error);
+      setShowAlert(true)
+      setTimeout(() => {
+        setShowAlert(false)
+      },2000)
     }
   }
 
-  return (
+  return (<>
+   <h1
+          style={{
+            color: "#00695f",
+            textDecoration: "underline",
+            maxWidth: "1400px",
+            margin: "auto"
+          }}
+        >
+          Add Pet
+        </h1>
+
     <div className="form-container">
-    
+    {showAlert ? (
+        errorList.map((item,index) =>{
+         return <Alert sx={{width: "40%", margin:"auto", mt:3}} key={index}  variant="filled" severity="error">{item}</Alert>
+        })): 
       <form className="add-new-form">
-        
-        <h1>Add New Animal</h1>
         <TextField
           required
           className="new-form-textfield"
@@ -130,15 +156,17 @@ function CreateAnimalForm() {
         
         <Button
           className="add-button"
+          style={{ backgroundColor: "#00695f" }}
           onClick={add}
           variant="contained"
           endIcon={<SendIcon />}
         >
-          Add New Customer
+          Add New Animal
         </Button>
         
-      </form>
+      </form>}
     </div>
+    </>
   );
 }
 

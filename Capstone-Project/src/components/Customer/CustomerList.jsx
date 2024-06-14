@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CustomerContext } from "../../contexts/CustomerContext";
 import {
-  deleteCustomerById,
-  getCustomers,
+  getCustomersByName,
   getCustomersTotalElement,
   getPageableCustomers,
 } from "../../services/CustomerApi";
@@ -10,6 +9,7 @@ import CustomerTableRow from "./CustomerTableRow";
 import CreateCustomerForm from "./CreateCustomerForm";
 import {
   Button,
+  Input,
   Table,
   TableBody,
   TableHead,
@@ -19,47 +19,67 @@ import {
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
 import Loading from "../General/Loading";
-import { useNavigate } from "react-router-dom";
 
 function CustomerList() {
-  const { customers, updateCustomers,removeCustomerById } = useContext(CustomerContext);
+  const { customers, updateCustomers } = useContext(CustomerContext);
   const [isLoading, setIsLoading] = useState(false);
   const [pageNumbers, setPageNumbers] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [listLength, setListLength] = useState(0);
-
+  const [filterByName, setFilterByName] = useState("");
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: "#00695f",
       color: theme.palette.common.white,
-      fontSize: 34,
+      fontSize: 20,
     },
   }));
+
+  function handleChange(e) {
+    setFilterByName(e.target.value);
+  }
 
   function changePage(e) {
     let value = e.target.id;
     setCurrentPage(parseInt(value) - 1);
-    console.log(customers)
   }
 
-
+  useEffect(() => {
+    async function fetchData() {
+      if (filterByName !== "") {
+        try {
+          const filterCustomer = await getCustomersByName(filterByName);
+          updateCustomers(filterCustomer);
+        } catch (error) {
+          console.log("Error fetching products: " + error);
+        }
+      } else {
+        try {
+          const showPage = await getPageableCustomers(currentPage);
+          updateCustomers(showPage);
+          setIsLoading(true);
+        } catch (error) {
+          console.log("Error fetching products: " + error);
+        }
+      }
+    }
+    fetchData();
+  }, [filterByName]);
 
   useEffect(() => {
-    async function fetchData(){
-      try{
+    async function fetchData() {
+      try {
         const totalElement = await getCustomersTotalElement();
         let number = Math.ceil(totalElement / 10);
-        for (let i = 1; i <= number; i++){
+        for (let i = 1; i <= number; i++) {
           pageNumbers.push(i);
         }
-      }catch (error) {
+      } catch (error) {
         console.log("Error fetching products: " + error);
       }
     }
     fetchData();
-    }, [])
-
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -67,14 +87,12 @@ function CustomerList() {
         const showPage = await getPageableCustomers(currentPage);
         updateCustomers(showPage);
         setIsLoading(true);
-        
       } catch (error) {
         console.log("Error fetching products: " + error);
       }
     }
     fetchData();
   }, [currentPage]);
-
 
   return (
     <div>
@@ -88,10 +106,33 @@ function CustomerList() {
           margin: "auto",
         }}
       >
-        <h1 style={{ textAlign: "center", margin: "50px 0" }}>
-          Müşteri Yönetimi
-        </h1>
-        <input type="text" />
+        <div
+          style={{
+            margin: "100px 0 20px 0",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            width: "1400px",
+          }}
+        >
+          <h1
+            style={{
+              color: "#00695f",
+              textAlign: "center",
+              textDecoration: "underline",
+            }}
+          >
+            Customer Managment
+          </h1>
+          <div>
+            <Input
+              placeholder="Search Customer Name"
+              onChange={handleChange}
+              value={filterByName}
+              type="text"
+            />
+          </div>
+        </div>
       </div>
       <Table className="table">
         <TableHead>
@@ -101,8 +142,8 @@ function CustomerList() {
             <StyledTableCell>Address</StyledTableCell>
             <StyledTableCell>Phone</StyledTableCell>
             <StyledTableCell>City</StyledTableCell>
-            <StyledTableCell>Animals</StyledTableCell>
-            <StyledTableCell>İşlemler</StyledTableCell>
+            <StyledTableCell>Animal List</StyledTableCell>
+            <StyledTableCell>Action</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -115,9 +156,15 @@ function CustomerList() {
           )}
         </TableBody>
       </Table>
-      <center style={{marginTop: "20px"}}>
-        {pageNumbers?.map((item, index) => (
-          <Button  style={{margin: "6px"}} variant="contained" onClick={changePage}  id={item} key={index}>
+      <center style={{ marginTop: "20px" }}>
+        {filterByName === "" && pageNumbers?.map((item, index) => (
+          <Button
+            style={{ margin: "6px", backgroundColor: "#00695f" }}
+            variant="contained"
+            onClick={changePage}
+            id={item}
+            key={index}
+          >
             {item}
           </Button>
         ))}
@@ -125,7 +172,6 @@ function CustomerList() {
       <div>
         <CreateCustomerForm />
       </div>
-      
     </div>
   );
 }

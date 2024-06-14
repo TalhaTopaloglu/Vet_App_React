@@ -1,0 +1,23 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.navbar-items-list {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+}
+
+
+.navbar-items-list li {
+    padding: 2rem;
+}
+
+.navbar a {
+    background-color: rgb(236, 237, 255);
+}

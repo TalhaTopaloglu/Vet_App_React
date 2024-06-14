@@ -2,6 +2,11 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate, useParams, NavLink } from "react-router-dom";
 import { AnimalContext } from "../../contexts/AnimalContext";
 import { deleteAnimaById, getAnimalById } from "../../services/AnimalApi";
+import { IconButton, Tooltip } from "@mui/material";
+import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+
+
 function AnimalDetail() {
   const { id } = useParams();
   const { animal, updateAnimal, removeAnimalById } = useContext(AnimalContext);
@@ -31,7 +36,10 @@ function AnimalDetail() {
 
   return (
     <div className="detail">
+
+      
       <div className="detail-page">
+      <NavLink to="/animal">Geri</NavLink>
         <div className="detail-page-header">
           <h1>{animal.name}</h1>
           <h3>Animal</h3>
@@ -63,12 +71,24 @@ function AnimalDetail() {
           </div>
         </div>
         <div className="detail-page-footer">
-          <div>
-            <NavLink to={`/animal/${id}/edit`}>Edit</NavLink>
-          </div>
-          <div>
-            <button onClick={deleteAnimal}>Delete</button>
-          </div>
+        <NavLink to={`edit`}>
+          <Tooltip title="Edit">
+            <IconButton>
+              <ModeEditOutlineRoundedIcon
+                sx={{ color: "#00695f"}}
+              />
+            </IconButton>
+          </Tooltip>
+        </NavLink>
+        <a style={{border:"none"}} onClick={deleteAnimal}>
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteRoundedIcon
+                sx={{ color: "#00695f" }}
+              />
+            </IconButton>
+          </Tooltip>
+        </a>
         </div>
       </div>
     </div>

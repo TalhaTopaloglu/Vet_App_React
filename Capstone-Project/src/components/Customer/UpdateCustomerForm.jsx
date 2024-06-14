@@ -1,13 +1,15 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { CustomerContext } from '../../contexts/CustomerContext';
 import { getCustomerById, updateCustomerById } from '../../services/CustomerApi';
-
+import {  Alert, Button } from "@mui/material" 
 function UpdateCustomerForm() {
 
   const {id} = useParams();
   const navigate = useNavigate();
   const {customer , updateCustomer} = useContext(CustomerContext);
+  const [showAlert, setShowAlert] = useState(false);
+  const [errorList, setErrorList] = useState([]);
 
   async function update(target){
     target.preventDefault();
@@ -16,7 +18,11 @@ function UpdateCustomerForm() {
       await updateCustomerById(id, customer);
       navigate(`/customer`)
     }catch(error) {
-      console.log(error)
+      setErrorList(error);
+      setShowAlert(true)
+      setTimeout(() => {
+        setShowAlert(false)
+      },2000)
     }
   }
 
@@ -55,36 +61,36 @@ function UpdateCustomerForm() {
   }
 
   return (
-    <div>
+    <div className='update-form'>
+      <h1 style={{borderBottom: "2px solid #00695f", color:"#00695f"}}>Customer Id:{customer?.id}</h1>
+      {showAlert ? (
+        errorList.map((item,index) =>{
+         return <Alert sx={{width: "40%", margin:"auto", my:3}} key={index}  variant="filled" severity="error">{item}</Alert>
+        })):
       <form>
-
-        <div>
+        <div className = "update-form-content">
           <label htmlFor="name">Name</label>
           <input onChange={handleChange} value={customer.name || ''} type="text"  id = 'name' />
         </div>
-
-        <div>
-          <label htmlFor="phone">phone</label>
+        <div className = "update-form-content">
+          <label htmlFor="phone">Phone</label>
           <input onChange={handleChange} value={customer.phone || ''} type="text"  id = 'phone' />
         </div>
-
-        <div>
-          <label htmlFor="mail">mail</label>
+        <div className = "update-form-content">
+          <label htmlFor="mail">Mail</label>
           <input onChange={handleChange} value={customer.mail || ''} type="text"  id = 'mail' />
         </div>
-
-        <div>
-          <label htmlFor="address">address</label>
+        <div className = "update-form-content">
+          <label htmlFor="address">Address</label>
           <input onChange={handleChange} value={customer.address || ''} type="text"  id = 'address' />
         </div>
-
-        <div>
-          <label htmlFor="city">city</label>
+        <div className = "update-form-content">
+          <label htmlFor="city">City</label>
           <input onChange={handleChange} value={customer.city || ''} type="text"  id = 'city' />
         </div>
-      </form>
-          <button onClick={update} type='submit'>Update</button>
-    </div>
+      </form>}
+          <Button sx={{backgroundColor: "#00695f"}} variant='contained' onClick={update} type='submit'>Update</Button>
+        </div>
   )
 }
 

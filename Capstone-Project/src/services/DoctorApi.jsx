@@ -1,15 +1,33 @@
 import axios from "axios";
 
-const baseURL = import.meta.env.VITE_API_URL
+const baseURL = import.meta.env.VITE_BASE_URL
 
 const apiURL = `${baseURL}/v1/doctors`
 
 export const getDoctors = async () => {
     try{
-        const response = await axios.get(apiURL);
+        const response = await axios.get(`${apiURL}?page=0&pageSize=100`);
         return response.data.data.items;
     }catch(error){
         console.log(error);
+    }
+}
+
+export const getPageableDoctors = async (pageNumber) => {
+    try{
+        const response = await axios.get(`${apiURL}?page=${pageNumber}&pageSize=10`);
+        return response.data.data.items;
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+export const getDoctorsTotalElement = async () => {
+    try{
+        const response = await axios.get(apiURL);
+        return response.data.data.totalElement;
+    }catch(error){
+        console.log(error.message);
     }
 }
 

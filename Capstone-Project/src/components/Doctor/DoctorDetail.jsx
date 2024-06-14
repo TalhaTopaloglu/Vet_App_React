@@ -4,6 +4,9 @@ import { DoctorContext } from "../../contexts/DoctorContext";
 import { deleteDoctorById, getDoctorsById } from "../../services/DoctorApi";
 import { format } from "date-fns";
 import { FormattedDate } from "../General/FormattedData";
+import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import { IconButton, Tooltip } from "@mui/material";
 
 function DoctorDetail() {
   const { id } = useParams();
@@ -65,7 +68,7 @@ function DoctorDetail() {
             </h3>
           </div>
           <div className="data-lists">
-            <div className="data-list" > {/*scrollbar eklenecek*/}
+            <div className="data-list">
               <h1>Appointment List</h1>
               <hr />
               <ul>
@@ -78,7 +81,7 @@ function DoctorDetail() {
                 })}
               </ul>
             </div>
-            <div className="data-list"> {/*scrollbar eklenecek*/}
+            <div className="data-list">
               <h1>Available Date List</h1>
               <hr />
               <ul>
@@ -90,12 +93,20 @@ function DoctorDetail() {
           </div>
         </div>
         <div className="detail-page-footer">
-          <div>
-            <NavLink to={`/doctor/${id}/edit`}>Edit</NavLink>
-          </div>
-          <div>
-            <button onClick={deleteDoctor}>Delete</button>
-          </div>
+          <NavLink to={`edit`}>
+            <Tooltip title="Edit">
+              <IconButton>
+                <ModeEditOutlineRoundedIcon sx={{ color: "#00695f" }} />
+              </IconButton>
+            </Tooltip>
+          </NavLink>
+          <a style={{ border: "none" }} onClick={deleteDoctor}>
+            <Tooltip title="Delete">
+              <IconButton>
+                <DeleteRoundedIcon sx={{ color: "#00695f" }} />
+              </IconButton>
+            </Tooltip>
+          </a>
         </div>
       </div>
     </div>

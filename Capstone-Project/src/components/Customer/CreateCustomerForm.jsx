@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { createCustomer } from "../../services/CustomerApi";
 import { CustomerContext } from "../../contexts/CustomerContext";
 import TextField from "@mui/material/TextField";
-import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
-
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
+import { Alert } from "@mui/material";
 
 function CreateCustomerForm() {
   
@@ -17,6 +17,8 @@ function CreateCustomerForm() {
   const cityRef = useRef();
 
   const { addCustomer } = useContext(CustomerContext);
+  const [showAlert, setShowAlert] = useState(false);
+  const [errorList, setErrorList] = useState([]);
 
   async function add(target) {
     target.preventDefault();
@@ -29,24 +31,46 @@ function CreateCustomerForm() {
         address:addressRef.current.value === "" ? null : addressRef.current.value,
         city: cityRef.current.value === "" ? null : cityRef.current.value,
       };
-      console.log(newCustomer)
+      console.log(newCustomer);
       const response = await createCustomer(newCustomer);
       if (response === undefined) {
-        console.log(response)
+        setErrorList(["Already Exist"]);
+        setShowAlert(true)
+        setTimeout(() => {
+        setShowAlert(false)
+      },2000)
         return false;
       } else {
         addCustomer(response);
         navigate(`/customer/${response.id}`);
       }
     } catch (error) {
-      console.log(error); // hata burada foır ile dönüp kontrol edilebilir
+      console.log(error)
+      setErrorList(error);
+      setShowAlert(true)
+      setTimeout(() => {
+        setShowAlert(false)
+      },2000)
     }
   }
 
-  return (
+  return (<>
+        <h1
+          style={{
+            color: "#00695f",
+            textDecoration: "underline",
+            maxWidth: "1400px",
+            margin: "auto"
+          }}
+        >
+          Add Customer
+        </h1>
     <div className="form-container">
+      {showAlert ? (
+        errorList.map((item,index) =>{
+         return <Alert sx={{width: "40%", margin:"auto", mt:3}} key={index}  variant="filled" severity="error">{item}</Alert>
+        })): 
       <form className="add-new-form">
-      <h1>Müşteri Ekle</h1>
         <TextField
           required
           className="new-form-textfield"
@@ -91,11 +115,18 @@ function CreateCustomerForm() {
           inputRef={cityRef}
           type="text"
         />
-        <Button className="add-button" onClick={add} variant="contained"  endIcon={<SendIcon />}>
+        <Button
+          className="add-button"
+          style={{ backgroundColor: "#00695f" }}
+          onClick={add}
+          variant="contained"
+          endIcon={<SendIcon />}
+        >
           Add New Customer
         </Button>
-      </form>
-      </div>
+      </form>}
+    </div>
+  </>
   );
 }
 

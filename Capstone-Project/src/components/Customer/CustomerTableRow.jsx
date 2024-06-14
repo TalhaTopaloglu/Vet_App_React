@@ -2,10 +2,13 @@ import { useContext, useEffect } from "react";
 import { CustomerContext } from "../../contexts/CustomerContext";
 import { deleteCustomerById } from "../../services/CustomerApi";
 import { NavLink, useNavigate } from "react-router-dom";
-import { TableRow } from "@mui/material";
+import { IconButton, TableRow, Tooltip } from "@mui/material";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
-
+import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
+import NestedList from "../General/NestedList";
 function CustomerTableRow({
   id,
   name,
@@ -13,15 +16,18 @@ function CustomerTableRow({
   mail,
   address,
   city,
-  animalList,
+  animalList
 }) {
   const { removeCustomerById } = useContext(CustomerContext);
+
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.body}`]: {
       color: theme.palette.primary,
       backgroundColor: theme.palette.primary,
-      fontSize: 22,
+      fontSize: 16,
+      padding: 10,
+      fontWeight: 700
     },
   }));
 
@@ -29,7 +35,6 @@ function CustomerTableRow({
     "&:nth-of-type(odd)": {
       backgroundColor: theme.palette.action.hover,
     },
-    // hide last border
     "&:last-child td, &:last-child th": {
       border: 0,
     },
@@ -39,29 +44,51 @@ function CustomerTableRow({
     try {
       await deleteCustomerById(id);
       removeCustomerById(id);
-      window.location.reload();
     } catch (error) {
       console.log(error);
     }
   }
 
-
   return (
-      <StyledTableRow>
-        <StyledTableCell> {name}</StyledTableCell>
-        <StyledTableCell>{mail}</StyledTableCell>
-        <StyledTableCell>{address}</StyledTableCell>
-        <StyledTableCell>{phone}</StyledTableCell>
-        <StyledTableCell>{city}</StyledTableCell>
-        <StyledTableCell>
-          {animalList?.map((item) => `${item.name} `)}
-        </StyledTableCell>
-        <StyledTableCell>
-          <NavLink to={`${id}`}>View</NavLink>
-          <NavLink to={`${id}/edit`}>Edit</NavLink>
-          <button onClick={deleteCustomer}> Delete</button>
-        </StyledTableCell>
-      </StyledTableRow>
+    <StyledTableRow>
+      <StyledTableCell> {name}</StyledTableCell>
+      <StyledTableCell>{mail}</StyledTableCell>
+      <StyledTableCell>{address}</StyledTableCell>
+      <StyledTableCell>{phone}</StyledTableCell>
+      <StyledTableCell>{city}</StyledTableCell>
+      <StyledTableCell>
+        {animalList.length > 0 ? <NestedList list={animalList} listName={"Animal List"}/>: "No animal added yet" }
+      </StyledTableCell>
+      <StyledTableCell>
+        <NavLink to={`${id}`}>
+          <Tooltip title="View">
+            <IconButton>
+              <VisibilityRoundedIcon
+                sx={{ color: "#00695f", }}
+              />
+            </IconButton>
+          </Tooltip>
+        </NavLink>
+        <NavLink to={`${id}/edit`}>
+          <Tooltip title="Edit">
+            <IconButton>
+              <ModeEditOutlineRoundedIcon
+                sx={{ color: "#00695f"}}
+              />
+            </IconButton>
+          </Tooltip>
+        </NavLink>
+        <a style={{border:"none"}} onClick={deleteCustomer}>
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteRoundedIcon
+                sx={{ color: "#00695f" }}
+              />
+            </IconButton>
+          </Tooltip>
+        </a>
+      </StyledTableCell>
+    </StyledTableRow>
   );
 }
 

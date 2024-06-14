@@ -1,13 +1,22 @@
 import axios from 'axios';
 
-const baseURL = import.meta.env.VITE_API_URL
+const baseURL = import.meta.env.VITE_BASE_URL
 
 const apiURL = `${baseURL}/v1/customers`; //?page=0&pageSize=10'
 
 export const getCustomers = async () => {
     try{
-        const response = await axios.get();
+        const response = await axios.get(`${apiURL}?page=0&pageSize=100`);
         return response.data.data.items;
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+export const getCustomersByName = async (filterName) => {
+    try{
+        const response = await axios.get(`${apiURL}/name/${filterName}`);
+        return response.data.data;
     }catch(error){
         console.log(error.message);
     }

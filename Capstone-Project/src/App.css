@@ -52,7 +52,10 @@ body{
 }
 
 .form-container{
-    margin: 3rem 0;
+    margin: 2rem auto;
+    box-shadow: 5px 5px 40px #888888;
+    max-width: 1400px;
+    padding: 2rem;
 }
 
 .table{
@@ -126,4 +129,29 @@ body{
     margin: 1rem;
  }
 
+.update-form{
+    display: flex;
+    flex-direction: column;
+    max-width: 1400px;
+    margin: 100px auto;
+    padding: 2rem;
+    box-shadow: 5px 5px 40px #888888;
+    align-items: center;
+}
+.update-form-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1rem;
+    font-size: 20px;
+}
 
+.update-form-content > label{
+    margin-right: 2rem;
+}
+
+.update-form-content > input{
+    height: 40px;
+    padding: 1rem;
+    font-size: 20px;
+}

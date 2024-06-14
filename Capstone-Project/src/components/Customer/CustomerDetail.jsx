@@ -5,6 +5,9 @@ import {
   deleteCustomerById,
   getCustomerById,
 } from "../../services/CustomerApi";
+import { IconButton, Tooltip } from "@mui/material";
+import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
 function CustomerDetail() {
   const { id } = useParams();
@@ -63,12 +66,24 @@ function CustomerDetail() {
           </div>
         </div>
         <div className="detail-page-footer">
-          <div>
-            <NavLink to={`/customer/${id}/edit`}>Edit</NavLink>
-          </div>
-          <div>
-            <button onClick={deleteCustomer}>Delete</button>
-          </div>
+        <NavLink to={`edit`}>
+          <Tooltip title="Edit">
+            <IconButton>
+              <ModeEditOutlineRoundedIcon
+                sx={{ color: "#00695f"}}
+              />
+            </IconButton>
+          </Tooltip>
+        </NavLink>
+        <a style={{border:"none"}} onClick={deleteCustomer}>
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteRoundedIcon
+                sx={{ color: "#00695f" }}
+              />
+            </IconButton>
+          </Tooltip>
+        </a>
         </div>
       </div>
     </div>

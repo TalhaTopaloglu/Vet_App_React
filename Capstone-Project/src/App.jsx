@@ -38,6 +38,7 @@ import ReportList from "./components/Reports/ReportList";
 import Reports from "./components/Reports/Reports";
 import ReportUpdateForm from "./components/Reports/ReportUpdateForm";
 import CreateVaccineForm from "./components/Vaccine/CreateVaccineForm";
+import UpdateAvailableDate from "./components/AvailableDate/UpdateAvailableDate";
 
 function App() {
   return (
@@ -74,7 +75,8 @@ function App() {
             </Route>
               <Route path="/available-date" element={<AvailableDates />}>
               <Route index element={<AvailableDateList />}/>
-              <Route path="available-date:id" element={<AvailableDateDetail />}/>
+              <Route path=":id" element={<AvailableDateDetail />}/>
+              <Route path=":id/edit" element={<UpdateAvailableDate />}/>
             </Route>
           </Routes>
         </AvailableDateListProvider>
@@ -94,8 +96,8 @@ function App() {
             <Route index element={<VaccineList />} />
             <Route path=":id" element={<VaccineDetail />} />
             <Route path=":id/edit" element={<UpdateVaccineForm />} />
+            <Route path=":id/add/" element={<CreateVaccineForm />}/>
           </Route>
-            <Route path="vaccine/new" element={<CreateVaccineForm />}/>
         </Routes>
       </VaccineListProvider>
       <ReportListProvider>
@@ -104,7 +106,7 @@ function App() {
             <Route index element={<ReportList />} />
             <Route path=":id" element={<ReportDetail />} />
             <Route path=":id/edit" element={<ReportUpdateForm />}/>
-            <Route path="/report/new" element={<CreateReportForm />}/>
+            <Route path=":id/add" element={<CreateReportForm />}/>
           </Route>
         </Routes>
       </ReportListProvider>
