@@ -1,7 +1,7 @@
 # React + Vite
 
-Front End Live : https://vet-app-react-nu.vercel.app/customer
-Back End : https://github.com/TalhaTopaloglu/Vet-Management-System
+## Front End Live : https://vet-app-react-nu.vercel.app/customer
+## Back End : https://github.com/TalhaTopaloglu/Vet-Management-System
 
 #### Technologies used :
 - HTML
@@ -13,13 +13,6 @@ Back End : https://github.com/TalhaTopaloglu/Vet-Management-System
 - React Router DOM
 - Docker
 - PostgreSQL
-- Spring Boot,
-- Spring Web,
-- Spring Boot Dev Tools,
-- Spring Data Jpa,
-- Lombok,
-- ModelMapper,
-- Validation
 
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
