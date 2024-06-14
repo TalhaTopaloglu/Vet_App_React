@@ -1,9 +1,10 @@
 import React, { useContext, useState,useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { AvailableDateContext } from '../../contexts/AvailableDateContext';
 import { getAvailableDateById, updateAvailableDateById } from '../../services/AvailableDateApi';
 import { getDoctors, getDoctorsById } from '../../services/DoctorApi';
 import { Alert, Button } from '@mui/material';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 function UpdateAvailableDate() {
 
@@ -62,6 +63,7 @@ function UpdateAvailableDate() {
 
   return (
     <div className="update-form">
+      <NavLink to="/doctor"> <ArrowBackRoundedIcon/></NavLink>
     <h1 style={{ borderBottom: "2px solid #00695f", color: "#00695f" }}>
       Work Day Id:{availableDate?.id}
     </h1>

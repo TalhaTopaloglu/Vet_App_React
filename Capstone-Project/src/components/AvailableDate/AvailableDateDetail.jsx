@@ -1,11 +1,12 @@
 import React from 'react'
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { AvailableDateContext } from "../../contexts/AvailableDateContext";
 import { IconButton, Tooltip } from "@mui/material";
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { deleteAvailableDateById, getAvailableDateById } from '../../services/AvailableDateApi';
 import { getDoctorsById } from '../../services/DoctorApi';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 function AvailableDateDetail() {
 
@@ -21,7 +22,6 @@ function AvailableDateDetail() {
         const availableDate = await getAvailableDateById(id);
         updateAvailableDate(availableDate);
         const availableDateDoctor = await getDoctorsById(availableDate?.doctorId);
-        console.log(availableDateDoctor)
         setDoctor(availableDateDoctor);
       } catch (error) {
         console.log(error);
@@ -45,6 +45,8 @@ function AvailableDateDetail() {
     <div className="detail">
     <div className="detail-page">
       <div className="detail-page-header">
+        <NavLink to="/doctor"> <ArrowBackRoundedIcon/></NavLink>
+
         <h1>Work Day ID: {availableDate?.id}</h1>
         <h3>Work Day</h3>
       </div>

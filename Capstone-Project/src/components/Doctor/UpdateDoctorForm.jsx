@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import {  Alert, Button } from "@mui/material"
 import { getDoctorsById, updateDoctorById } from '../../services/DoctorApi';
 import { DoctorContext } from '../../contexts/DoctorContext';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 function UpdateDoctorForm() {
 
@@ -65,6 +66,8 @@ function UpdateDoctorForm() {
 
   return (
     <div className='update-form'>
+      <NavLink to="/doctor"> <ArrowBackRoundedIcon/></NavLink>
+
     <h1 style={{borderBottom: "2px solid #00695f", color:"#00695f"}}>doctor Id:{doctor?.id}</h1>
     {showAlert ? (
       errorList.map((item,index) =>{

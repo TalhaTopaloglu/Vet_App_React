@@ -4,8 +4,8 @@ import { AnimalContext } from "../../contexts/AnimalContext";
 import { deleteAnimaById, getAnimalById } from "../../services/AnimalApi";
 import { IconButton, Tooltip } from "@mui/material";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function AnimalDetail() {
   const { id } = useParams();
@@ -36,15 +36,16 @@ function AnimalDetail() {
 
   return (
     <div className="detail">
-
-      
       <div className="detail-page">
-      <NavLink to="/animal">Geri</NavLink>
         <div className="detail-page-header">
+        <NavLink to="/animal"> <ArrowBackIcon />  </NavLink>
           <h1>{animal.name}</h1>
           <h3>Animal</h3>
         </div>
-        <div style={{justifyContent: "flex-start"}} className="detail-page-content">
+        <div
+          style={{ justifyContent: "flex-start" }}
+          className="detail-page-content"
+        >
           <div className="data-info">
             <h1>
               Bİlgiler
@@ -71,24 +72,20 @@ function AnimalDetail() {
           </div>
         </div>
         <div className="detail-page-footer">
-        <NavLink to={`edit`}>
-          <Tooltip title="Edit">
-            <IconButton>
-              <ModeEditOutlineRoundedIcon
-                sx={{ color: "#00695f"}}
-              />
-            </IconButton>
-          </Tooltip>
-        </NavLink>
-        <a style={{border:"none"}} onClick={deleteAnimal}>
-          <Tooltip title="Delete">
-            <IconButton>
-              <DeleteRoundedIcon
-                sx={{ color: "#00695f" }}
-              />
-            </IconButton>
-          </Tooltip>
-        </a>
+          <NavLink to={`edit`}>
+            <Tooltip title="Edit">
+              <IconButton>
+                <ModeEditOutlineRoundedIcon sx={{ color: "#00695f" }} />
+              </IconButton>
+            </Tooltip>
+          </NavLink>
+          <a style={{ border: "none" }} onClick={deleteAnimal}>
+            <Tooltip title="Delete">
+              <IconButton>
+                <DeleteRoundedIcon sx={{ color: "#00695f" }} />
+              </IconButton>
+            </Tooltip>
+          </a>
         </div>
       </div>
     </div>

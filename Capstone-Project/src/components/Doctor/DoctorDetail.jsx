@@ -7,6 +7,7 @@ import { FormattedDate } from "../General/FormattedData";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { IconButton, Tooltip } from "@mui/material";
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 function DoctorDetail() {
   const { id } = useParams();
@@ -45,6 +46,8 @@ function DoctorDetail() {
     <div className="detail">
       <div className="detail-page">
         <div className="detail-page-header">
+      <NavLink to="/doctor"> <ArrowBackRoundedIcon/></NavLink>
+
           <h1>{doctor.name}</h1>
           <h3>Doctor</h3>
         </div>

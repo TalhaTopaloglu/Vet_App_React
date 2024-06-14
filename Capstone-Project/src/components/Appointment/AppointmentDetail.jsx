@@ -5,6 +5,7 @@ import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRound
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { deleteAppointmentById, getAppointmentById } from "../../services/Appointment";
 import { AppointmentContext } from "../../contexts/Appointment";
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 function AppointmentDetail() {
   const { id } = useParams();
@@ -40,6 +41,7 @@ function AppointmentDetail() {
     <div className="detail">
     <div className="detail-page">
       <div className="detail-page-header">
+      <NavLink to="/appointment"> <ArrowBackRoundedIcon/></NavLink>
         <h1>{appointment.id}</h1>
         <h3>Appointment</h3>
       </div>

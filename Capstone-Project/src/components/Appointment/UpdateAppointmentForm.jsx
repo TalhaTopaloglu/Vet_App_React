@@ -1,11 +1,12 @@
 import React from "react";
 import { Alert, Button } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { getAnimals } from "../../services/AnimalApi";
 import { getAppointmentById, updateAppointmentById } from "../../services/Appointment";
 import { AppointmentContext } from "../../contexts/Appointment";
 import { getDoctors} from "../../services/DoctorApi";
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 function UpdateAppointmentForm() {
   const { id } = useParams();
@@ -77,6 +78,7 @@ function UpdateAppointmentForm() {
 
   return (
     <div className="update-form">
+      <NavLink to="/appointment"> <ArrowBackRoundedIcon /></NavLink>
       <h1 style={{ borderBottom: "2px solid #00695f", color: "#00695f" }}>
         Appointment Id:{appointment?.id}
       </h1>

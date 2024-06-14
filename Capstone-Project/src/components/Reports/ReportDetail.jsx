@@ -5,6 +5,7 @@ import {deleteReportById,getReportById} from "../../services/ReportApi"
 import { IconButton, Tooltip } from "@mui/material";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 function ReportDetail() {
 
@@ -41,6 +42,8 @@ function ReportDetail() {
     <div className="detail">
     <div className="detail-page">
       <div className="detail-page-header">
+      <NavLink to="/report"> <ArrowBackRoundedIcon/></NavLink>
+
         <h1>{report.id}</h1>
         <h3>Report</h3>
       </div>

@@ -8,6 +8,7 @@ import {
 import { IconButton, Tooltip } from "@mui/material";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 function CustomerDetail() {
   const { id } = useParams();
@@ -42,6 +43,8 @@ function CustomerDetail() {
     <div className="detail">
       <div className="detail-page">
         <div className="detail-page-header">
+      <NavLink to="/customer"> <ArrowBackRoundedIcon/></NavLink>
+
           <h1>{customer.name}</h1>
           <h3>Customer</h3>
         </div>

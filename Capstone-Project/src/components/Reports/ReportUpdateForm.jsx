@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import {  Alert, Button } from "@mui/material" 
 import { getReportById, updateReportById } from '../../services/ReportApi';
 import { ReportContext } from '../../contexts/ReportContext';
-
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 
 function ReportUpdateForm() {
@@ -57,6 +57,8 @@ function ReportUpdateForm() {
 
   return (
     <div className='update-form'>
+      <NavLink to="/report"> <ArrowBackRoundedIcon/></NavLink>
+
       <h1 style={{borderBottom: "2px solid #00695f", color:"#00695f"}}>Report Id:{report?.id}</h1>
       {showAlert ? (
         errorList.map((item,index) =>{

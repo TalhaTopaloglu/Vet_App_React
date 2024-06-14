@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import { CustomerContext } from '../../contexts/CustomerContext';
 import { getCustomerById, updateCustomerById } from '../../services/CustomerApi';
 import {  Alert, Button } from "@mui/material" 
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 function UpdateCustomerForm() {
 
   const {id} = useParams();
@@ -62,6 +63,8 @@ function UpdateCustomerForm() {
 
   return (
     <div className='update-form'>
+      <NavLink to="/customer"> <ArrowBackRoundedIcon/></NavLink>
+
       <h1 style={{borderBottom: "2px solid #00695f", color:"#00695f"}}>Customer Id:{customer?.id}</h1>
       {showAlert ? (
         errorList.map((item,index) =>{

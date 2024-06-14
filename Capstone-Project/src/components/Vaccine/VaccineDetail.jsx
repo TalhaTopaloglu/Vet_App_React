@@ -5,6 +5,7 @@ import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRound
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { VaccineContext } from "../../contexts/VaccinesContext";
 import { deleteVaccineById, getVaccineById } from "../../services/VaccineApi";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 
 function VaccineDetail() {
   const { id } = useParams();
@@ -38,6 +39,10 @@ function VaccineDetail() {
     <div className="detail">
       <div className="detail-page">
         <div className="detail-page-header">
+          <NavLink to="/vaccine">
+            <ArrowBackRoundedIcon />
+          </NavLink>
+
           <h1>{vaccine.name}</h1>
           <h3>Vaccine</h3>
         </div>
@@ -54,7 +59,7 @@ function VaccineDetail() {
               Protection Start Date : <span>{vaccine.protectionStartDate}</span>{" "}
             </h3>
             <h3 className="title">
-            Protection End Date : <span>{vaccine.protectionFinishDate}</span>{" "}
+              Protection End Date : <span>{vaccine.protectionFinishDate}</span>{" "}
             </h3>
             <h3 className="title">
               Pet Name : <span>{vaccine?.animal?.name}</span>{" "}

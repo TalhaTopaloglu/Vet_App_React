@@ -4,6 +4,7 @@ import { AnimalContext } from "../../contexts/AnimalContext";
 import { getAnimalById, updateAnimalById } from "../../services/AnimalApi";
 import { getCustomers } from "../../services/CustomerApi";
 import { Alert, Button } from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function UpdateAnimalForm() {
   const { id } = useParams();
@@ -77,10 +78,10 @@ function UpdateAnimalForm() {
 
   return (
     <div className="update-form">
+      <NavLink to="/animal"> <ArrowBackIcon/></NavLink>
       <h1 style={{ borderBottom: "2px solid #00695f", color: "#00695f" }}>
         Animal Id:{animal?.id}
       </h1>
-      <NavLink style={{position:"absolute", left: 300}} to="/animal">Geri</NavLink>
 
       {showAlert ? (
         errorList.map((item, index) => {

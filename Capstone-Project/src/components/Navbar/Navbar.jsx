@@ -8,10 +8,10 @@ import Button from "@mui/material/Button";
 import PetsIcon from "@mui/icons-material/Pets";
 
 const pages = [
-  {
-    name: "Home",
-    link: "/",
-  },
+  // {
+  //   name: "Home",
+  //   link: "/",
+  // },
   {
     name: "Customer",
     link: "/customer",
