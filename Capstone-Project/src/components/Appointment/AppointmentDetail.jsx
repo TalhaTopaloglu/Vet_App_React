@@ -16,7 +16,6 @@ function AppointmentDetail() {
     async function fetchData() {
       try {
         const appointment = await getAppointmentById(id);
-        console.log(appointment)
         updateAppointment(appointment);
       } catch (error) {
         console.log(error);

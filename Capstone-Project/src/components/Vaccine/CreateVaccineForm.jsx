@@ -26,8 +26,6 @@ function CreateVaccineForm() {
         setAnimals(animals);
         const reports = await getReports();
         setReports(reports);
-        console.log(reports)
-        console.log(id)
         setAnimal(reports?.find((item) => (item.id == id)).appointment.animal);
       } catch (error) {
         console.log("Error fetching products: " + error);
@@ -56,9 +54,7 @@ function CreateVaccineForm() {
         animalId: animalRef.current.value === "" ? null :animalRef.current.value ,
         reportId: id,
       };
-      console.log(newVaccine);
       const response = await createVaccine(newVaccine);
-      console.log(response);
       if (response === undefined) {
         return false;
       } else {

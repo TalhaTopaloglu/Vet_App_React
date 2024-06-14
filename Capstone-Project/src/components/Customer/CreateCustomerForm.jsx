@@ -31,7 +31,6 @@ function CreateCustomerForm() {
         address:addressRef.current.value === "" ? null : addressRef.current.value,
         city: cityRef.current.value === "" ? null : cityRef.current.value,
       };
-      console.log(newCustomer);
       const response = await createCustomer(newCustomer);
       if (response === undefined) {
         setErrorList(["Already Exist"]);
@@ -45,7 +44,6 @@ function CreateCustomerForm() {
         navigate(`/customer/${response.id}`);
       }
     } catch (error) {
-      console.log(error)
       setErrorList(error);
       setShowAlert(true)
       setTimeout(() => {

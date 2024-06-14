@@ -18,7 +18,6 @@ function UpdateAnimalForm() {
   async function update(target) {
     target.preventDefault();
     try {
-      console.log(animal)
       await updateAnimalById(id, animal);
       navigate(`/animal/${id}`);
     } catch (error) {

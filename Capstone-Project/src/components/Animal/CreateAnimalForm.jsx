@@ -16,7 +16,6 @@ function CreateAnimalForm() {
     async function fetchData() {
       try {
         const customers = await getCustomers();
-        console.log(customers)
         setCustomerList(customers);
         } catch (error) {
         console.log("Error fetching products: " + error);
@@ -48,9 +47,7 @@ function CreateAnimalForm() {
         dateOfBirth:dateOfBirthRef.current.value === "" ? null: dateOfBirthRef.current.value,
         customerId: customerRef.current.value === "" ? null : customerRef.current.value,
       };
-      console.log(newAnimal);
       const response = await createAnimal(newAnimal);
-      console.log(response);
       if (response === undefined) {
         setErrorList(["Already Exist"]);
         setShowAlert(true)

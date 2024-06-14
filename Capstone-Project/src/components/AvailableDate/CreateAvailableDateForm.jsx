@@ -16,21 +16,9 @@ function CreateAvailableDateForm({ doctors }) {
   const doctorIdRef = useRef();
 
   const { addAvailableDate } = useContext(AvailableDateContext);
-  // const [availableDateList, setAvailableDateList] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
   const [errorList, setErrorList] = useState([]);
 
-  // useState(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const availableDates = await getAvailableDates();
-  //       setAvailableDateList(availableDates);
-  //     } catch (error) {
-  //       console.log("Error fetching products: " + error);
-  //     }
-  //   }
-  //   fetchData();
-  // }, []);
 
   async function add(target) {
     target.preventDefault();
@@ -44,9 +32,7 @@ function CreateAvailableDateForm({ doctors }) {
         doctorId:
           doctorIdRef.current.value === "" ? null : doctorIdRef.current.value,
       };
-      console.log(newAvailableDate);
       const response = await createAvailableDate(newAvailableDate);
-      console.log(response);
       if (response === undefined) {
         return false;
       } else {

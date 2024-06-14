@@ -40,7 +40,6 @@ function UpdateAvailableDate() {
         setDoctorList(doctors)
         const doctor = await getDoctorsById(availableDate?.doctorId)
         setSelectedDoctor(doctor);
-        console.log(selectedDoctor)
       }catch (error){
         console.log(error)
       }

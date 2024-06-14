@@ -41,7 +41,6 @@ function CreateReportForm() {
       };
       const response = await createReport(newReport);
       if (response === undefined) {
-        console.log(response);
         return false;
       } else {
         addReport(response);

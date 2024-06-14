@@ -36,7 +36,6 @@ function UpdateVaccineForm() {
       try {
         const vaccine = await getVaccineById(id);
         updateVaccine(vaccine);
-        console.log(vaccine)
       }catch (error){
         console.log(error)
       }

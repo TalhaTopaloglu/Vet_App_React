@@ -177,7 +177,7 @@ function AnimalList() {
           <StyledTableCell>Colour</StyledTableCell>
           <StyledTableCell>Date of Birth</StyledTableCell>
           <StyledTableCell>Customer Name</StyledTableCell>
-          <StyledTableCell>İşlemler</StyledTableCell>
+          <StyledTableCell>Action</StyledTableCell>
         </TableRow>
       </TableHead>
       <TableBody>

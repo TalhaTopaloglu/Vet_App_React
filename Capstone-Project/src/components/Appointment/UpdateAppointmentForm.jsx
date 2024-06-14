@@ -25,8 +25,6 @@ function UpdateAppointmentForm() {
       await updateAppointmentById(id, appointment);
       navigate(`/appointment`);
     } catch (error) {
-      // setErrorList(error);
-      console.log(error)
       setShowAlert(true);
       setTimeout(() => {
         setShowAlert(false);
