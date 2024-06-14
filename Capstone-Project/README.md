@@ -1,6 +1,6 @@
 # React + Vite
 
-## Front End Live : https://vet-app-react-nu.vercel.app/customer
+## Front End Live : https://vet-app-react-nu.vercel.app
 ## Back End : https://github.com/TalhaTopaloglu/Vet-Management-System
 
 #### Technologies used :
